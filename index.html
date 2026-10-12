@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StormScale AI — Autonomous Omnichannel Operations & CRM Orchestration</title>
+  <meta name="description" content="StormScale AI scales enterprise operations with deterministic autonomous agents powered by Anthropic's Claude 3.5 tiered architecture, multimodal receipt verification, and real-time CRM tool-use.">
+  
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Tailwind Configuration -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            claude: {
+              50: '#fbf8f5',
+              100: '#f6ece2',
+              400: '#e58e60',
+              500: '#d97746', // Iconic Anthropic terracotta
+              600: '#c05c2d',
+              700: '#9d4520',
+            },
+            surface: {
+              950: '#07090e',
+              900: '#0d1117',
+              850: '#131923',
+              800: '#1b2230',
+              700: '#263145',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom CSS Animations and Glassmorphism -->
+  <style>
+    .glow-ambient {
+      background: radial-gradient(circle at 50% 0%, rgba(217, 119, 70, 0.16) 0%, rgba(13, 17, 23, 0) 70%);
+    }
+    .glass-panel {
+      background: rgba(19, 25, 35, 0.72);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-panel-hover:hover {
+      border-color: rgba(217, 119, 70, 0.35);
+      box-shadow: 0 12px 36px -10px rgba(217, 119, 70, 0.18);
+    }
+    .gradient-frame {
+      background: linear-gradient(135deg, rgba(217, 119, 70, 0.35) 0%, rgba(255, 255, 255, 0.06) 50%, rgba(56, 189, 248, 0.15) 100%);
+      padding: 1px;
+      border-radius: 1.25rem;
+    }
+    @keyframes pulseSlow {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.04); }
+    }
+    .animate-pulse-slow {
+      animation: pulseSlow 4s ease-in-out infinite;
+    }
+  </style>
+</head>
+
+<body class="bg-surface-950 text-slate-100 font-sans antialiased selection:bg-claude-500/30 selection:text-claude-100 min-h-screen flex flex-col">
+
+  <!-- Ambient Light Field -->
+  <div class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[520px] glow-ambient pointer-events-none z-0"></div>
+
+  <header class="sticky top-0 z-50 border-b border-white/5 bg-surface-950/85 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-claude-600 via-claude-500 to-amber-400 flex items-center justify-center shadow-lg shadow-claude-600/25 group-hover:scale-105 transition-transform duration-200">
+          <i data-lucide="zap" class="w-5 h-5 text-white fill-white"></i>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-xl font-extrabold tracking-tight text-white flex items-center gap-1.5">
+            StormScale <span class="text-claude-400 font-mono text-xs px-1.5 py-0.5 rounded bg-claude-500/10 border border-claude-500/20">AI</span>
+          </span>
+          <span class="text-[10px] text-slate-400 font-mono tracking-wider uppercase">Enterprise Operations Core</span>
+        </div>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+        <a href="#platform" class="hover:text-claude-400 transition-colors">Platform</a>
+        <a href="#claude-pipeline" class="hover:text-claude-400 transition-colors">Tiered Architecture</a>
+        <a href="#simulator" class="hover:text-claude-400 transition-colors">Live Simulation</a>
+        <a href="#vision" class="hover:text-claude-400 transition-colors">Vision Audit</a>
+        <a href="#security" class="hover:text-claude-400 transition-colors">Security & Trust</a>
+      </nav>
+
+      <!-- Access / Actions -->
+      <div class="flex items-center gap-3">
+        <a href="/login" class="px-3.5 py-2 text-xs sm:text-sm font-medium text-slate-300 hover:text-white transition-colors flex items-center gap-1.5">
+          <i data-lucide="lock" class="w-3.5 h-3.5 text-claude-400"></i>
+          <span>Workspace Login</span>
+        </a>
+        <a href="#simulator" class="px-4 py-2 sm:px-5 sm:py-2.5 rounded-lg text-xs sm:text-sm font-semibold bg-gradient-to-r from-claude-600 to-claude-500 text-white shadow-lg shadow-claude-600/20 hover:brightness-110 hover:shadow-claude-600/35 transition-all duration-200 flex items-center gap-2">
+          <span>Request Platform Demo</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="relative z-10 flex-grow">
+
+    <!-- HERO SECTION -->
+    <section class="pt-24 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center">
+      
+      <!-- Anthropic API Recognition Pill -->
+      <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-surface-900 border border-slate-700/80 text-slate-300 text-xs font-medium mb-8 hover:border-claude-500/40 transition-colors shadow-sm">
+        <span class="flex h-2 w-2 rounded-full bg-claude-400 animate-pulse"></span>
+        <span class="font-mono text-claude-400 font-semibold tracking-wide">DESIGNED FOR ANTHROPIC CLAUDE APIs</span>
+        <span class="text-slate-600">|</span>
+        <span class="text-slate-400">Claude 3.5 Sonnet, Opus & Haiku Native</span>
+      </div>
+
+      <!-- Hero Header -->
+      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white max-w-5xl mx-auto leading-[1.12]">
+        Autonomous Omnichannel CRM & Operations Driven by <span class="text-transparent bg-clip-text bg-gradient-to-r from-claude-400 via-amber-300 to-claude-600">Deep Reasoning AI</span>
+      </h1>
+
+      <!-- Value Proposition Body -->
+      <p class="mt-6 text-lg sm:text-xl text-slate-300/90 max-w-3xl mx-auto font-normal leading-relaxed">
+        StormScale AI bridges modern enterprise messaging channels with deterministic business execution: qualified lead triaging, instant payment links, multi-currency invoice reconciliation, and multimodal document verification.
+      </p>
+
+      <!-- Conversion Buttons -->
+      <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="#simulator" class="w-full sm:w-auto px-8 py-3.5 rounded-xl font-semibold bg-claude-500 hover:bg-claude-600 text-white shadow-xl shadow-claude-500/25 transition-all duration-200 flex items-center justify-center gap-2 group">
+          <span>Test Interactive Agent Console</span>
+          <i data-lucide="chevron-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+        </a>
+        <a href="/login" class="w-full sm:w-auto px-8 py-3.5 rounded-xl font-semibold bg-surface-850 hover:bg-surface-800 border border-slate-700/80 text-slate-200 transition-all flex items-center justify-center gap-2 shadow-sm">
+          <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>
+          <span>Multi-Tenant Gateway Login</span>
+        </a>
+      </div>
+
+      <!-- Quantitative Highlights -->
+      <div class="mt-16 pt-8 border-t border-slate-800/80 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto text-left">
+        <div class="space-y-1">
+          <p class="text-2xl sm:text-3xl font-bold font-mono text-white">99.7%</p>
+          <p class="text-xs text-slate-400 uppercase tracking-wider font-mono">System Policy Adherence</p>
+        </div>
+        <div class="space-y-1">
+          <p class="text-2xl sm:text-3xl font-bold font-mono text-white">&lt;720ms</p>
+          <p class="text-xs text-slate-400 uppercase tracking-wider font-mono">Claude Haiku Triage Latency</p>
+        </div>
+        <div class="space-y-1">
+          <p class="text-2xl sm:text-3xl font-bold font-mono text-white">Vision OCR</p>
+          <p class="text-xs text-slate-400 uppercase tracking-wider font-mono">Multimodal Bank Receipt Audit</p>
+        </div>
+        <div class="space-y-1">
+          <p class="text-2xl sm:text-3xl font-bold font-mono text-white">200k+</p>
+          <p class="text-xs text-slate-400 uppercase tracking-wider font-mono">Token State Context Window</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE LIVE CONSOLE & SIMULATION -->
+    <section id="simulator" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-10">
+        <span class="text-xs font-mono text-claude-400 uppercase tracking-widest font-semibold">Deterministic Execution Demo</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Live Agent Simulation Console</h2>
+        <p class="mt-3 text-slate-400 text-sm">
+          Test real-time model routing, structured function execution, and autonomous CRM mutations across high-frequency enterprise workflows.
+        </p>
+      </div>
+
+      <!-- Tab Controller -->
+      <div class="max-w-5xl mx-auto gradient-frame shadow-2xl shadow-surface-950/80">
+        <div class="bg-surface-900 rounded-2xl overflow-hidden">
+          
+          <!-- Tab Navigation Bar -->
+          <div class="flex flex-wrap items-center justify-between border-b border-slate-800 bg-surface-850 px-4 py-3 gap-2">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-rose-500/80 inline-block"></span>
+              <span class="w-3 h-3 rounded-full bg-amber-500/80 inline-block"></span>
+              <span class="w-3 h-3 rounded-full bg-emerald-500/80 inline-block"></span>
+              <span class="ml-2 font-mono text-xs text-slate-400 hidden sm:inline">stormscale-kernel // inference-runtime: live</span>
+            </div>
+
+            <!-- Tab Buttons -->
+            <div class="flex items-center gap-1.5 font-mono text-xs">
+              <button onclick="setTab('omnichannel')" id="tab-btn-omnichannel" class="sim-tab px-3 py-1.5 rounded-lg bg-claude-500 text-white font-semibold transition flex items-center gap-1.5">
+                <i data-lucide="message-square-code" class="w-3.5 h-3.5"></i>
+                <span>1. Omnichannel Tool-Calling</span>
+              </button>
+              <button onclick="setTab('vision')" id="tab-btn-vision" class="sim-tab px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <i data-lucide="scan" class="w-3.5 h-3.5"></i>
+                <span>2. Vision Receipt Audit</span>
+              </button>
+              <button onclick="setTab('opus')" id="tab-btn-opus" class="sim-tab px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition flex items-center gap-1.5">
+                <i data-lucide="brain-circuit" class="w-3.5 h-3.5"></i>
+                <span>3. Opus Deep Reasoning</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Dynamic Console Content -->
+          <div class="p-6 sm:p-8 space-y-6 bg-surface-900/90" id="console-display">
+            
+            <!-- Metadata & Model Banner -->
+            <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-800/80 text-xs font-mono">
+              <div class="flex items-center gap-2">
+                <span class="text-slate-500">Channel Source:</span>
+                <span id="meta-source" class="text-emerald-400 font-semibold flex items-center gap-1">
+                  <i data-lucide="globe" class="w-3.5 h-3.5"></i> Meta WhatsApp Cloud Webhook
+                </span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-slate-500">Active Model:</span>
+                <span id="meta-model" class="px-2.5 py-0.5 rounded bg-claude-500/15 text-claude-300 border border-claude-500/30 font-semibold">
+                  Claude 3.5 Sonnet (Tool Calling)
+                </span>
+              </div>
+            </div>
+
+            <!-- Inbound Event / Customer Payload -->
+            <div class="space-y-2">
+              <div class="flex items-center justify-between text-xs font-mono text-slate-400">
+                <span class="flex items-center gap-1.5"><i data-lucide="arrow-down-left" class="w-3.5 h-3.5 text-sky-400"></i> Inbound Message Payload</span>
+                <span id="meta-client-id">Entity: Meridian Global [Acct #4082]</span>
+              </div>
+              <div id="display-input" class="p-4 rounded-xl bg-surface-850 border border-slate-800 text-sm text-slate-200 font-normal leading-relaxed">
+                "Hello, our procurement committee approved the 25-seat Annual Enterprise package. Could you generate an immediate payment checkout link with our agreed corporate tax deduction?"
+              </div>
+            </div>
+
+            <!-- Reasoning Trace & Tool Invocation -->
+            <div class="p-4 sm:p-5 rounded-xl bg-surface-950 border border-claude-500/30 space-y-3 font-mono text-xs">
+              <div class="flex items-center justify-between">
+                <span class="text-amber-400 font-semibold flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+                  Agent Reasoning & Function Call Pipeline:
+                </span>
+                <span class="text-[11px] text-slate-500 font-mono">Inference: 540ms</span>
+              </div>
+              <div id="display-trace" class="space-y-1.5 text-slate-300 pl-2 border-l-2 border-claude-500/40">
+                <p><span class="text-sky-400">1. Verification:</span> Validated account tier against CRM database entity (Tier: B2B Growth).</p>
+                <p><span class="text-amber-400">2. Pricing Calculation:</span> 25 Seats * $80/seat/mo * 12 mos - 15% Enterprise Volume = $20,400.00 USD.</p>
+                <p><span class="text-emerald-400">3. Deterministic Tool Execution:</span> <code class="bg-surface-850 px-2 py-0.5 rounded text-emerald-300 border border-slate-700">payments.createCheckoutSession(amount=20400, currency="USD", tax_exemption=true)</code></p>
+              </div>
+            </div>
+
+            <!-- Outbound Autonomous Response -->
+            <div class="space-y-2">
+              <div class="flex items-center justify-between text-xs font-mono text-slate-400">
+                <span class="flex items-center gap-1.5"><i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-claude-400"></i> Outbound Autonomous Response</span>
+                <span class="text-emerald-400 font-semibold">Delivery Confirmed via Webhook</span>
+              </div>
+              <div id="display-output" class="p-4 rounded-xl bg-claude-500/10 border border-claude-500/25 text-sm text-slate-100 leading-relaxed">
+                "Certainly! We've prepared your 25-seat Annual Enterprise subscription with the 15% corporate incentive applied ($20,400.00 USD total). You can finalize payment through our encrypted gateway: [Secure Enterprise Checkout Link]. Once verified, seats will be provisioned automatically."
+              </div>
+            </div>
+
+            <!-- CRM Entity State Mutation Status -->
+            <div class="pt-3 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
+              <div class="flex items-center gap-2 text-slate-400">
+                <span>CRM Pipeline Mutation:</span>
+                <span id="meta-crm-stage" class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">Stage: Deal_Contract_Sent</span>
+              </div>
+              <div class="flex items-center gap-2 text-slate-400">
+                <span>Tokens Consumed:</span>
+                <span id="meta-tokens" class="text-claude-400 font-semibold">1,480 In / 312 Out (Prompt Cache Hit)</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ANTHROPIC CLAUDE TIERED ARCHITECTURE EXPLANATION -->
+    <section id="claude-pipeline" class="py-20 border-t border-slate-850 bg-surface-900/40">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <span class="text-xs font-mono text-claude-400 uppercase tracking-widest font-semibold">Model Specialization & Token Efficiency</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Tiered Intelligence: The Right Model for Every Task</h2>
+          <p class="mt-4 text-slate-400 text-sm sm:text-base leading-relaxed">
+            StormScale AI does not treat language models as monolithic black boxes. We dynamically route enterprise payloads through Anthropic's state-of-the-art model lineup to maximize cognitive reasoning while maintaining strict token cost efficiency.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          <!-- Haiku Card -->
+          <div class="glass-panel glass-panel-hover p-8 rounded-2xl flex flex-col justify-between transition-all duration-300">
+            <div>
+              <div class="flex items-center justify-between mb-5">
+                <span class="text-xs font-mono uppercase text-sky-400 font-bold bg-sky-500/10 px-2.5 py-1 rounded border border-sky-500/20">Tier 1: Triage</span>
+                <i data-lucide="zap" class="w-5 h-5 text-sky-400"></i>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-2">Claude 3.5 Haiku</h3>
+              <p class="text-xs font-mono text-slate-400 mb-4">Sub-Second Gatekeeper</p>
+              <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                Intercepts all incoming webhooks, validates request integrity, filters automated noise, categorizes intent taxonomy, and answers trivial operational queries with latencies under 800ms.
+              </p>
+            </div>
+            <div class="border-t border-slate-800 pt-4 space-y-2 text-xs font-mono text-slate-400">
+              <div class="flex justify-between">
+                <span>Latency Benchmark:</span>
+                <span class="text-sky-400 font-bold">&lt; 750ms</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Workload Allocation:</span>
+                <span class="text-slate-200">58% of Inbound Volume</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sonnet Card (Featured Workhorse) -->
+          <div class="glass-panel p-8 rounded-2xl flex flex-col justify-between border-claude-500/40 relative shadow-xl shadow-claude-500/5 transition-all duration-300">
+            <span class="absolute -top-3.5 right-6 px-3 py-0.5 rounded-full text-[10px] font-mono font-bold bg-gradient-to-r from-claude-500 to-amber-500 text-white uppercase tracking-wider shadow-sm">
+              Primary Engine
+            </span>
+            <div>
+              <div class="flex items-center justify-between mb-5">
+                <span class="text-xs font-mono uppercase text-claude-400 font-bold bg-claude-500/15 px-2.5 py-1 rounded border border-claude-500/30">Tier 2: Tool Use</span>
+                <i data-lucide="cpu" class="w-5 h-5 text-claude-400"></i>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-2">Claude 3.5 Sonnet</h3>
+              <p class="text-xs font-mono text-claude-400/90 mb-4">Structured Business Reasoning</p>
+              <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                The core driver for high-stakes business negotiations, parameter extraction, dynamic checkout generation, inventory reservations, and bilateral CRM record mutations.
+              </p>
+            </div>
+            <div class="border-t border-slate-800 pt-4 space-y-2 text-xs font-mono text-slate-300">
+              <div class="flex justify-between">
+                <span>Function Call Accuracy:</span>
+                <span class="text-claude-400 font-bold">99.8% Deterministic</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Workload Allocation:</span>
+                <span class="text-slate-100">34% of Core Transactions</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Opus Card -->
+          <div class="glass-panel glass-panel-hover p-8 rounded-2xl flex flex-col justify-between transition-all duration-300">
+            <div>
+              <div class="flex items-center justify-between mb-5">
+                <span class="text-xs font-mono uppercase text-purple-400 font-bold bg-purple-500/10 px-2.5 py-1 rounded border border-purple-500/20">Tier 3: Cognition</span>
+                <i data-lucide="brain" class="w-5 h-5 text-purple-400"></i>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-2">Claude 3.5 Opus</h3>
+              <p class="text-xs font-mono text-slate-400 mb-4">Contract Reasoning & Disputes</p>
+              <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                Activated for high-ticket agreements, multi-page legal or commercial SLA evaluation, risk detection, and dispute mediation before human supervisor escalation.
+              </p>
+            </div>
+            <div class="border-t border-slate-800 pt-4 space-y-2 text-xs font-mono text-slate-400">
+              <div class="flex justify-between">
+                <span>Context Window Depth:</span>
+                <span class="text-purple-400 font-bold">200,000+ Tokens</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Workload Allocation:</span>
+                <span class="text-slate-200">8% Mission-Critical Edge</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- MULTIMODAL VISION ENGINE SECTION -->
+    <section id="vision" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Text Explanation -->
+        <div class="lg:col-span-6 space-y-6">
+          <span class="text-xs font-mono text-claude-400 uppercase tracking-widest font-semibold">Multimodal Vision Pipeline</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white leading-tight">
+            Instant OCR Verification for Inbound Wire Transfers & Technical Documents
+          </h2>
+          <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+            Modern enterprise workflows rely on visual proofs: bank transfer confirmations, QR receipts, equipment schematics, and commercial bills of lading. StormScale uses Claude's multimodal vision API to parse and audit visual uploads in real time.
+          </p>
+
+          <div class="space-y-3 font-mono text-xs text-slate-300">
+            <div class="flex items-start gap-3 p-3.5 rounded-xl bg-surface-900 border border-slate-800">
+              <i data-lucide="shield-alert" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+              <span>Anti-Tamper Heuristics: Identifies altered fonts, anomalous pixel compression, and duplicate reference IDs.</span>
+            </div>
+            <div class="flex items-start gap-3 p-3.5 rounded-xl bg-surface-900 border border-slate-800">
+              <i data-lucide="receipt" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+              <span>Automated Extraction: Currency denomination, reference voucher code, issuing bank BIC, and exact timestamp.</span>
+            </div>
+            <div class="flex items-start gap-3 p-3.5 rounded-xl bg-surface-900 border border-slate-800">
+              <i data-lucide="git-merge" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+              <span>Immediate Ledger Reconciliation: Directly reconciles the invoice in your ERP or accounting software.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Simulated Vision Visual Mockup -->
+        <div class="lg:col-span-6 gradient-frame">
+          <div class="bg-surface-900 p-6 sm:p-7 rounded-2xl space-y-4">
+            
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                <span class="font-mono text-xs text-slate-300">Vision Audit Result: wire_confirmation_#8921.png</span>
+              </div>
+              <span class="font-mono text-xs text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">OCR Confidence: 99.8%</span>
+            </div>
+
+            <!-- Parsed JSON Output -->
+            <div class="bg-surface-950 p-4 rounded-xl border border-slate-800/80 font-mono text-xs text-slate-300 space-y-1.5 overflow-x-auto">
+              <div class="text-slate-500">// Structured JSON payload produced by Claude Vision Parser</div>
+              <p><span class="text-claude-400">"document_type":</span> "INBOUND_WIRE_RECEIPT",</p>
+              <p><span class="text-claude-400">"issuing_institution":</span> "Global Clearing Bank / Fedwire Gateway",</p>
+              <p><span class="text-claude-400">"transaction_reference":</span> "TXN-9024881-ENT",</p>
+              <p><span class="text-claude-400">"detected_amount":</span> 8450.00,</p>
+              <p><span class="text-claude-400">"currency":</span> "USD",</p>
+              <p><span class="text-claude-400">"payer_corporate_entity":</span> "Apex Logistical Systems LLC",</p>
+              <p><span class="text-claude-400">"fraud_risk_score":</span> "LOW_CONFIRMED"</p>
+            </div>
+
+            <!-- Action Ribbon -->
+            <div class="p-3.5 bg-emerald-500/10 border border-emerald-500/25 rounded-xl text-xs text-emerald-300 flex items-center justify-between font-mono">
+              <div class="flex items-center gap-2">
+                <i data-lucide="check-check" class="w-4 h-4"></i>
+                <span>Automated Action: Customer Account Unlocked & Invoice Marked Paid</span>
+              </div>
+              <span class="text-slate-400">Audit ID: #7729</span>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TOKEN ECONOMICS & ARCHITECTURE SPEC -->
+    <section id="platform" class="py-20 border-t border-slate-850 bg-surface-900/40">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <span class="text-xs font-mono text-claude-400 uppercase tracking-widest font-semibold">Enterprise Foundation</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Engineered for High-Throughput Token Scale</h2>
+          <p class="mt-4 text-slate-400 text-sm sm:text-base">
+            Architected specifically to utilize Anthropic's Prompt Caching and extended context window capabilities to minimize round-trip costs at enterprise volume.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <div class="glass-panel p-6 rounded-2xl space-y-3">
+            <div class="w-10 h-10 rounded-lg bg-claude-500/10 border border-claude-500/20 flex items-center justify-center text-claude-400">
+              <i data-lucide="database" class="w-5 h-5"></i>
+            </div>
+            <h3 class="font-bold text-white text-base">Prompt Caching Native</h3>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Maintains static system prompts, CRM catalogs, and compliance rulebooks cached, cutting latency by up to 80% and input token costs by up to 90%.
+            </p>
+          </div>
+
+          <div class="glass-panel p-6 rounded-2xl space-y-3">
+            <div class="w-10 h-10 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400">
+              <i data-lucide="git-branch" class="w-5 h-5"></i>
+            </div>
+            <h3 class="font-bold text-white text-base">Stateful Context Memory</h3>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Preserves chronological customer records across weeks of messaging sessions without context degradation or token overflow crashes.
+            </p>
+          </div>
+
+          <div class="glass-panel p-6 rounded-2xl space-y-3">
+            <div class="w-10 h-10 rounded-lg bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400">
+              <i data-lucide="shield" class="w-5 h-5"></i>
+            </div>
+            <h3 class="font-bold text-white text-base">Strict Multi-Tenant Isolation</h3>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Individual encryption keys and discrete vector namespaces per corporate client. Zero cross-tenant data contamination or model re-training.
+            </p>
+          </div>
+
+          <div class="glass-panel p-6 rounded-2xl space-y-3">
+            <div class="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400">
+              <i data-lucide="user-check" class="w-5 h-5"></i>
+            </div>
+            <h3 class="font-bold text-white text-base">Human-in-the-Loop Override</h3>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Supervisors can pause autonomous agents, inspect reasoning chains, and inject instructions into active threads with single-keystroke toggles.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ENTERPRISE SECURITY & COMPLIANCE -->
+    <section id="security" class="py-20 border-t border-slate-850">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="glass-panel p-8 sm:p-12 rounded-3xl border border-slate-800">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            
+            <div class="lg:col-span-7 space-y-4">
+              <span class="text-xs font-mono text-emerald-400 uppercase tracking-widest font-semibold flex items-center gap-1.5">
+                <i data-lucide="shield-check" class="w-4 h-4"></i> Corporate Governance & Security
+              </span>
+              <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Built for Audited Enterprise Workloads</h2>
+              <p class="text-slate-300 text-sm leading-relaxed">
+                StormScale AI adheres to strict data boundary policies. Customer communication streams are processed in memory and encrypted with AES-256 both in transit and at rest. No user data is ever passed to public model training sets.
+              </p>
+              
+              <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-4 font-mono text-xs text-slate-300">
+                <div class="p-3 rounded-lg bg-surface-900 border border-slate-800">
+                  <p class="text-white font-bold">AES-256</p>
+                  <p class="text-slate-500 text-[11px]">Payload Encryption</p>
+                </div>
+                <div class="p-3 rounded-lg bg-surface-900 border border-slate-800">
+                  <p class="text-white font-bold">SOC-2 Type II</p>
+                  <p class="text-slate-500 text-[11px]">Readiness Architecture</p>
+                </div>
+                <div class="p-3 rounded-lg bg-surface-900 border border-slate-800">
+                  <p class="text-white font-bold">Zero-Retention</p>
+                  <p class="text-slate-500 text-[11px]">Model Training Policy</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="lg:col-span-5 bg-surface-900 p-6 rounded-2xl border border-slate-800 space-y-3 font-mono text-xs">
+              <div class="text-slate-400 font-semibold mb-2 flex items-center justify-between">
+                <span>Infrastructure Telemetry</span>
+                <span class="text-emerald-400 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> 99.98% Operational</span>
+              </div>
+              <div class="space-y-1.5 text-slate-400">
+                <div class="flex justify-between py-1 border-b border-slate-800">
+                  <span>API Gateway Health:</span>
+                  <span class="text-slate-200">100% Passed</span>
+                </div>
+                <div class="flex justify-between py-1 border-b border-slate-800">
+                  <span>Anthropic Ingestion Route:</span>
+                  <span class="text-emerald-400">US-East Dedicated VPC</span>
+                </div>
+                <div class="flex justify-between py-1 border-b border-slate-800">
+                  <span>Webhook Dispatch Latency:</span>
+                  <span class="text-slate-200">32ms Average</span>
+                </div>
+                <div class="flex justify-between py-1">
+                  <span>Tenant Cryptographic Keys:</span>
+                  <span class="text-slate-200">KMS Isolated</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CALL TO ACTION -->
+    <section class="py-24 text-center max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="gradient-frame shadow-2xl">
+        <div class="p-10 sm:p-14 rounded-2xl bg-surface-900 text-center space-y-6">
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+            Ready to deploy autonomous operations with StormScale AI?
+          </h2>
+          <p class="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+            Connect your omnichannel communication streams, leverage the tiered intelligence of Claude 3.5, and automate end-to-end sales and reconciliation.
+          </p>
+
+          <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="/login" class="w-full sm:w-auto px-8 py-3.5 rounded-xl font-bold bg-claude-500 hover:bg-claude-600 text-white transition shadow-lg shadow-claude-500/25">
+              Access Private Workspace (Login)
+            </a>
+            <a href="mailto:founder@stormscale.ai" class="w-full sm:w-auto px-8 py-3.5 rounded-xl font-bold bg-surface-800 hover:bg-surface-700 text-slate-200 border border-slate-700 transition">
+              Contact Founding Engineering Team
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-850 bg-surface-950 py-12 text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+      
+      <!-- Logo Branding -->
+      <div class="flex items-center gap-2.5">
+        <div class="w-6 h-6 rounded bg-claude-500 flex items-center justify-center text-white font-bold text-xs">S</div>
+        <span class="text-slate-200 font-bold">StormScale AI</span>
+        <span>— Autonomous Operations & CRM Orchestration Platform</span>
+      </div>
+
+      <!-- Links -->
+      <div class="flex items-center gap-6">
+        <a href="/login" class="hover:text-slate-300 transition">Client Login</a>
+        <a href="#" class="hover:text-slate-300 transition">Privacy Architecture</a>
+        <a href="#" class="hover:text-slate-300 transition">Terms of Service</a>
+        <a href="mailto:founder@stormscale.ai" class="hover:text-slate-300 transition">Security Disclosure</a>
+      </div>
+
+      <!-- Copyright -->
+      <div>
+        <p>© 2026 StormScale AI. Architected for integration with Anthropic Claude APIs.</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <script>
+    // Initialize Lucide icons on page render
+    lucide.createIcons();
+
+    // Data store for interactive simulator tabs (strictly generic, anonymized data)
+    const simulationPresets = {
+      omnichannel: {
+        source: '<i data-lucide="globe" class="w-3.5 h-3.5"></i> Meta WhatsApp Cloud Webhook',
+        model: 'Claude 3.5 Sonnet (Tool Calling)',
+        clientId: 'Entity: Meridian Global [Acct #4082]',
+        input: '"Hello, our procurement committee approved the 25-seat Annual Enterprise package. Could you generate an immediate payment checkout link with our agreed corporate tax deduction?"',
+        trace: [
+          '<span class="text-sky-400">1. Verification:</span> Validated account tier against CRM database entity (Tier: B2B Growth).',
+          '<span class="text-amber-400">2. Pricing Calculation:</span> 25 Seats * $80/seat/mo * 12 mos - 15% Enterprise Volume = $20,400.00 USD.',
+          '<span class="text-emerald-400">3. Deterministic Tool Execution:</span> <code class="bg-surface-850 px-2 py-0.5 rounded text-emerald-300 border border-slate-700">payments.createCheckoutSession(amount=20400, currency="USD", tax_exemption=true)</code>'
+        ],
+        output: '"Certainly! We\'ve prepared your 25-seat Annual Enterprise subscription with the 15% corporate incentive applied ($20,400.00 USD total). You can finalize payment through our encrypted gateway: [Secure Enterprise Checkout Link]. Once verified, seats will be provisioned automatically."',
+        stage: 'Stage: Deal_Contract_Sent',
+        tokens: '1,480 In / 312 Out (Prompt Cache Hit)'
+      },
+      vision: {
+        source: '<i data-lucide="camera" class="w-3.5 h-3.5"></i> Telegram Inbound Binary Stream',
+        model: 'Claude 3.5 Sonnet (Multimodal Vision Engine)',
+        clientId: 'Entity: Apex Logistical Systems [Acct #1194]',
+        input: '"[Image Uploaded: wire_receipt_tx902.png] Good morning. We just transferred $8,450.00 USD for our monthly dispatch cluster renewal. Please confirm receipt and unlock server limits."',
+        trace: [
+          '<span class="text-purple-400">1. Multimodal OCR:</span> Detected bank voucher wire slip. Extracted Reference: TXN-9024881-ENT, Amount: $8,450.00 USD.',
+          '<span class="text-sky-400">2. Anti-Tamper Check:</span> Pixel geometry clean. Issue timestamp matches current UTC banking window.',
+          '<span class="text-emerald-400">3. Tool Execution:</span> <code class="bg-surface-850 px-2 py-0.5 rounded text-emerald-300 border border-slate-700">crm.markInvoiceSettled(invoice_id="INV-8821", reconcile_proof="TXN-9024881-ENT")</code>'
+        ],
+        output: '"Thank you! Our automated audit engine validated your wire transfer reference TXN-9024881-ENT for $8,450.00 USD. Your invoice #INV-8821 has been marked paid in full, and your cluster compute limits have been lifted immediately."',
+        stage: 'Stage: Payment_Reconciled_Active',
+        tokens: '2,920 In (Includes 1.2k Vision Tokens) / 240 Out'
+      },
+      opus: {
+        source: '<i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Enterprise REST API Gateway',
+        model: 'Claude 3.5 Opus (High-Context Reasoning & SLA Risk)',
+        clientId: 'Entity: Hyperion Industrial Group [Acct #7810]',
+        input: '"We are comparing Clause 8.2 in our customized SLA draft regarding 99.99% failover liability. How does StormScale ensure latency compliance when Meta APIs encounter international upstream throttling?"',
+        trace: [
+          '<span class="text-amber-400">1. Deep Context Retrieval:</span> Ingested full 48-page enterprise SLA addendum (Master Agreement v4.2).',
+          '<span class="text-sky-400">2. Policy Evaluation:</span> Cross-checked secondary failover routing protocol (Automatic fallback to regional SMS and direct WebSocket channel).',
+          '<span class="text-emerald-400">3. Reasoning Synthesis:</span> Prepared structured technical rejoinder citing Clause 8.2 exception limits and fallback queue telemetry.'
+        ],
+        output: '"Per Section 8.2 of your Enterprise SLA, StormScale implements autonomous secondary fallback routing: if Meta\'s Cloud API experiences upstream latency exceeding 1,200ms, our orchestrator immediately reroutes high-priority transaction events through redundant direct WebSockets and high-throughput SMS fallbacks, ensuring zero message loss and SLA compliance."',
+        stage: 'Stage: Legal_Review_Resolved',
+        tokens: '18,400 In (Prompt Cache Active) / 640 Out'
+      }
+    };
+
+    function setTab(key) {
+      const data = simulationPresets[key];
+      if (!data) return;
+
+      // Update interactive elements
+      document.getElementById('meta-source').innerHTML = data.source;
+      document.getElementById('meta-model').innerText = data.model;
+      document.getElementById('meta-client-id').innerText = data.clientId;
+      document.getElementById('display-input').innerText = data.input;
+      document.getElementById('display-output').innerText = data.output;
+      document.getElementById('meta-crm-stage').innerText = data.stage;
+      document.getElementById('meta-tokens').innerText = data.tokens;
+
+      // Update trace list
+      const traceContainer = document.getElementById('display-trace');
+      traceContainer.innerHTML = data.trace.map(t => `<p>${t}</p>`).join('');
+
+      // Refresh button styles
+      document.querySelectorAll('.sim-tab').forEach(b => {
+        b.classList.remove('bg-claude-500', 'text-white', 'font-semibold');
+        b.classList.add('text-slate-400');
+      });
+      const currentBtn = document.getElementById('tab-btn-' + key);
+      currentBtn.classList.remove('text-slate-400');
+      currentBtn.classList.add('bg-claude-500', 'text-white', 'font-semibold');
+
+      // Re-trigger icon rendering for dynamically replaced items
+      lucide.createIcons();
+    }
+  </script>
+</body>
+</html>
